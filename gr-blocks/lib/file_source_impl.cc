@@ -45,14 +45,14 @@
 namespace gr {
   namespace blocks {
 
-    file_source::sptr file_source::make(size_t itemsize, const char *filename, bool repeat,
+    file_source::sptr file_source::make(size_t itemsize, const char *filename[findex], bool repeat,
                                         uint64_t start_offset_items, uint64_t length_items)
     {
       return gnuradio::get_initial_sptr
-        (new file_source_impl(itemsize, filename, repeat, start_offset_items, length_items));
+        (new file_source_impl(itemsize, filename[findex], repeat, start_offset_items, length_items));
     }
 
-    file_source_impl::file_source_impl(size_t itemsize, const char *filename, bool repeat,
+    file_source_impl::file_source_impl(size_t itemsize, const char *filename[findex], bool repeat,
                                        uint64_t start_offset_items, uint64_t length_items)
       : sync_block("file_source",
                    io_signature::make(0, 0, 0),
@@ -62,7 +62,7 @@ namespace gr {
         d_fp(0), d_new_fp(0), d_repeat(repeat), d_updated(false),
         d_file_begin(true), d_repeat_cnt(0), d_add_begin_tag(pmt::PMT_NIL)
     {
-      open(filename, repeat, start_offset_items, length_items);
+      open(filename[findex], repeat, start_offset_items, length_items);
       do_update();
 
       std::stringstream str;
