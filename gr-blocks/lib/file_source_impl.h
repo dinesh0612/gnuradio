@@ -42,6 +42,7 @@ namespace gr {
       bool d_updated;
       bool d_file_begin;
       long d_repeat_cnt;
+      int findex;
       pmt::pmt_t d_add_begin_tag;
 
       boost::mutex fp_mutex;
